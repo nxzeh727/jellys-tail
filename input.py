@@ -30,6 +30,7 @@ class InputBox:
                 if event.key == pg.K_RETURN:
                     potat = self.text
                     self.text = ''
+                    self.txt_surface = font.render(text, True, self.color)
                     return potat
                 elif event.key == pg.K_BACKSPACE:
                     self.text = self.text[:-1]
@@ -40,6 +41,7 @@ class InputBox:
         self.screen.blit(self.txt_surface, (self.x, self.y))
         pg.draw.rect(self.screen,self.color,self.rect,2, border_radius=8)
 
+        
                         
                     
                         
