@@ -7,6 +7,7 @@ screen = pygame.display.set_mode((640, 640))
 screen_rect = screen.get_rect()
 clock = pygame.time.Clock()
 FPS = 30
+start_time = pygame.time.get_ticks()
 minute_num = 25
 break_minute_num = 5
 WORK_TIME = minute_num * 60
@@ -86,6 +87,8 @@ async def main():
         if event.type == pygame.QUIT:
             running = False
         elif event.type == pygame.MOUSEBUTTONDOWN:
+            if pygame.time.get_ticks() - start_time < 500:
+                continue
             if event.button == 1:
                 if current_screen == "start" and button.collidepoint(event.pos):
                     current_screen = "game"
