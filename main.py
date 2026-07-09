@@ -105,7 +105,8 @@ async def main():
                     if breaktime.text.isdigit():
                         minute_num = int(breaktime.text)
                         BREAK_TIME = minute_num * 60
-                        cur_time = BREAK_TIME
+                        if not is_working:
+                            cur_time = BREAK_TIME
                 if timer.collidepoint(event.pos):
                     timerselected = True 
                     aboutselected = False
