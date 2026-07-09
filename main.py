@@ -101,6 +101,11 @@ async def main():
                         minute_num = int(worktime.text)
                         WORK_TIME = minute_num * 60
                         cur_time = WORK_TIME
+                if current_screen == "settings" and submitbreaktime.collidepoint(event.pos):
+                    if breaktime.text.isdigit():
+                        minute_num = int(breaktime.text)
+                        WORK_TIME = minute_num * 60
+                        cur_time = BREAK_TIME
                 if timer.collidepoint(event.pos):
                     timerselected = True 
                     aboutselected = False
