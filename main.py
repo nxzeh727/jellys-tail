@@ -1,3 +1,4 @@
+import asyncio
 import pygame
 from input import InputBox
 
@@ -18,7 +19,7 @@ TIMER_EVENT = pygame.USEREVENT + 1
 pygame.time.set_timer(TIMER_EVENT, 1000)
 running = True
 dt = 0
-sound = pygame.mixer.Sound("potaopt.mp3")
+sound = pygame.mixer.Sound("potaopt.ogg")
 font = pygame.font.Font("NanumPenScript-Regular.ttf", 40)
 fontfont = pygame.font.Font("Flower-Regular.ttf",100)
 fontfontfont = pygame.font.Font("Flower-Regular.ttf",40)
@@ -72,7 +73,11 @@ def plants(screen, session_num):
     screen.blit(image, image_rect)
 
 
-while running:
+async def main():
+  global running, current_screen, timer_running, cur_time, is_working, sessions, break_work, minute_num, WORK_TIME
+  global timerselected, aboutselected, plantselected
+
+  while running:
     
     for event in pygame.event.get():
         if current_screen == "settings":
@@ -83,19 +88,15 @@ while running:
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if event.button == 1:
                 if current_screen == "start" and button.collidepoint(event.pos):
-                    pygame.time.wait(1000)
                     current_screen = "game"
 
                 if current_screen == "game" and start_pomodoro.collidepoint(event.pos):
                     timer_running = not timer_running
                 if current_screen == "game" and setteings.collidepoint(event.pos):
-                    pygame.time.wait(500)
                     current_screen = "settings"
                 if current_screen == "settings" and close.collidepoint(event.pos):
-                    pygame.time.wait(500)
                     current_screen = "game"
                 if current_screen == "settings" and submitworktime.collidepoint(event.pos):
-                    pygame.time.wait(500)
                     if worktime.text.isdigit():
                         minute_num = int(worktime.text)
                         WORK_TIME = minute_num * 60
@@ -244,5 +245,8 @@ while running:
 
 
     clock.tick(FPS)
+    await asyncio.sleep(0)
 
-pygame.quit()
+  pygame.quit()
+
+asyncio.run(main())
